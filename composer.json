@@ -19,5 +19,12 @@
     "psr-4": {
       "SUDHAUS7\\FeDataHistory\\Tests": "Tests/"
     }
+  },
+  "require": {
+    "typo3/cms-core": "^9.5",
+    "typo3/cms-backend": "^9.5",
+    "typo3/cms-extbase": "^9.5",
+    "typo3/cms-beuser": "^9.5",
+    "typo3/cms-felogin": "^9.5"
   }
 }
