@@ -1,0 +1,23 @@
+{
+  "name": "sudhaus7/fe-data-history",
+  "description": "Log the changed data in frontend mode",
+  "version": "1.0.0",
+  "type": "typo3-cms-extension",
+  "authors": [
+    {
+      "name": "Markus Hofmann",
+      "role": "Developer",
+      "email": "mhofmann@sudhaus7.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "SUDHAUS7\\FeDataHistory\\": "Classes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SUDHAUS7\\FeDataHistory\\Tests": "Tests/"
+    }
+  }
+}
