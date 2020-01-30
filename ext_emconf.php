@@ -8,4 +8,25 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Markus Hofmann',
     'author_email' => 'mhofmann@sudhaus7.de',
     'version' => '1.0.0',
+    'shy' => '',
+    'dependencies' => 'cms',
+    'conflicts' => '',
+    'priority' => '',
+    'module' => '',
+    'internal' => '',
+    'uploadfolder' => 0,
+    'createDirs' => '',
+    'modify_tables' => '',
+    'clearCacheOnLoad' => 0,
+    'lockType' => '',
+    'author_company' => 'Sudhaus7',
+    'constraints' => [
+        'depends' => [
+            'typo3' => '9.5.13-9.5.99',
+        ],
+        'conflicts' => [
+        ],
+        'suggests' => [
+        ],
+    ],
 ];

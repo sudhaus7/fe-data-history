@@ -136,16 +136,6 @@ class RecordHistoryStore
     }
 
     /**
-     * @param $oldRecord
-     * @param $newRecord
-     * @return array
-     */
-    public function createPayload($oldRecord, $newRecord)
-    {
-        return [];
-    }
-
-    /**
      * @return Connection
      */
     protected function getDatabaseConnection(): Connection
