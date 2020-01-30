@@ -11,6 +11,8 @@ use SUDHAUS7\FeDataHistory\History\RecordHistoryStore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -37,6 +39,7 @@ trait HistoryRecord
     /**
      * @param AbstractEntity $object
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\TooDirtyException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     protected function writeModified(AbstractEntity $object)
     {
@@ -86,6 +89,7 @@ trait HistoryRecord
 
     /**
      * @param AbstractEntity $object
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     protected function writeNew(AbstractEntity $object)
     {
@@ -105,6 +109,7 @@ trait HistoryRecord
 
     /**
      * @param AbstractEntity $object
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     protected function writeDeleted(AbstractEntity $object)
     {
@@ -117,25 +122,13 @@ trait HistoryRecord
     /**
      * @param AbstractEntity $obj
      * @return string
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     private function getTableName(AbstractEntity $obj)
     {
-        $tableName = '';
-
-        $class = get_class($obj);
-        $classArray = explode('\\', $class);
-        array_shift($classArray);
-        foreach ($classArray as &$name) {
-            $name = GeneralUtility::camelCaseToLowerCaseUnderscored($name);
-        }
-
-        $model = array_pop($classArray);
-        $extension = array_shift($classArray);
-        $extension = strtolower(GeneralUtility::underscoredToLowerCamelCase($extension));
-
-        if (!empty($model) && !empty($extension)) {
-            $tableName = sprintf('tx_%1$s_domain_model_%2$s', $extension, $model);
-        }
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $dataMapper = $objectManager->get(DataMapper::class);
+        $tableName = $dataMapper->getDataMap(\get_class($obj))->getTableName();
 
         return $tableName;
     }
