@@ -38,7 +38,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
             $singleLine = [];
 
             // Get user names
-            if ($entry['usertype'] == "FE") {
+            if ($entry['usertype'] === 'FE' ) {
                 if (array_key_exists($entry['userid'], $feUserArray)) {
                     $feUser = $feUserArray[$entry['userid']];
                 } else {
