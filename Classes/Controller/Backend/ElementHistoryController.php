@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * Created by: markus
@@ -38,7 +39,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
             $singleLine = [];
 
             // Get user names
-            if ($entry['usertype'] === 'FE' ) {
+            if ($entry['usertype'] === 'FE') {
                 if (array_key_exists($entry['userid'], $feUserArray)) {
                     $feUser = $feUserArray[$entry['userid']];
                 } else {
@@ -46,7 +47,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
                     $feUserArray[$feUser['uid']] = $feUser;
                 }
                 $singleLine['backendUserUid'] = $feUser['uid'];
-                $singleLine['backendUserName'] = 'FE-User: ' .($feUser['uid'] ? $feUser['username'] : '');
+                $singleLine['backendUserName'] = 'FE-User: '.($feUser['uid'] ? $feUser['username'] : '');
             } else {
                 $singleLine['backendUserUid'] = $entry['userid'];
                 $singleLine['backendUserName'] = $entry['userid'] ? $beUserArray[$entry['userid']]['username'] : '';
@@ -64,7 +65,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
             $singleLine['age'] = BackendUtility::calcAge($GLOBALS['EXEC_TIME'] - $entry['tstamp'], $languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.minutesHoursDaysYears'));
 
             $singleLine['title'] = $this->generateTitle($entry['tablename'], $entry['recuid']);
-            $singleLine['elementUrl'] = $this->buildUrl(['element' => $entry['tablename'] . ':' . $entry['recuid']]);
+            $singleLine['elementUrl'] = $this->buildUrl(['element' => $entry['tablename'].':'.$entry['recuid']]);
             $singleLine['actiontype'] = $entry['actiontype'];
             if ((int)$entry['actiontype'] === RecordHistoryStore::ACTION_MODIFY) {
                 // show changes

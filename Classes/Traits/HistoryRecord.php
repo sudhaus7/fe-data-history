@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * Created by: markus
@@ -143,10 +144,11 @@ trait HistoryRecord
      * @return string
      * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
-    private function getDbFieldName($property,AbstractEntity $obj){
+    private function getDbFieldName($property, AbstractEntity $obj)
+    {
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $dataMapper = $objectManager->get(DataMapper::class);
-        $dbFieldName = $dataMapper->convertPropertyNameToColumnName($property,\get_class($obj));
+        $dbFieldName = $dataMapper->convertPropertyNameToColumnName($property, \get_class($obj));
         return $dbFieldName;
     }
 }
