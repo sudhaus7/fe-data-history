@@ -40,6 +40,7 @@ trait HistoryRecord
      * @param AbstractEntity $object
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\TooDirtyException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     protected function writeModified(AbstractEntity $object)
     {
@@ -47,7 +48,7 @@ trait HistoryRecord
         $newRecord = [];
         foreach ($object->_getProperties() as $property => $value) {
             if ($object->_isDirty($property)) {
-                $dbProperty = GeneralUtility::camelCaseToLowerCaseUnderscored($property);
+                $dbProperty = $this->getDbFieldName($property, $object);
                 if ($value instanceof ObjectStorage) {
                     $oldValue = [];
                     /** @var AbstractEntity $cleanObject */
@@ -90,6 +91,7 @@ trait HistoryRecord
     /**
      * @param AbstractEntity $object
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     protected function writeNew(AbstractEntity $object)
     {
@@ -110,6 +112,7 @@ trait HistoryRecord
     /**
      * @param AbstractEntity $object
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     protected function writeDeleted(AbstractEntity $object)
     {
@@ -123,6 +126,7 @@ trait HistoryRecord
      * @param AbstractEntity $obj
      * @return string
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
     private function getTableName(AbstractEntity $obj)
     {
@@ -131,5 +135,18 @@ trait HistoryRecord
         $tableName = $dataMapper->getDataMap(\get_class($obj))->getTableName();
 
         return $tableName;
+    }
+
+    /**
+     * @param $property
+     * @param AbstractEntity $obj
+     * @return string
+     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     */
+    private function getDbFieldName($property,AbstractEntity $obj){
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $dataMapper = $objectManager->get(DataMapper::class);
+        $dbFieldName = $dataMapper->convertPropertyNameToColumnName($property,\get_class($obj));
+        return $dbFieldName;
     }
 }
