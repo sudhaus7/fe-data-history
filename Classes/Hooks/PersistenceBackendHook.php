@@ -11,6 +11,7 @@ namespace SUDHAUS7\FeDataHistory\Hooks;
 use SUDHAUS7\FeDataHistory\Domain\HistoryEntityInterface;
 use SUDHAUS7\FeDataHistory\Traits\HistoryRecord;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception\TooDirtyException;
 
 /**
@@ -20,10 +21,13 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Exception\TooDirtyException;
 class PersistenceBackendHook
 {
     use HistoryRecord;
+
     /**
      * @param AbstractEntity $object
      * @return array
      * @throws TooDirtyException
+     * @throws Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     public function afterUpdate(AbstractEntity $object)
     {
@@ -39,6 +43,8 @@ class PersistenceBackendHook
     /**
      * @param AbstractEntity $object
      * @return array
+     * @throws Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     public function endInsert(AbstractEntity $object)
     {
@@ -52,6 +58,8 @@ class PersistenceBackendHook
     /**
      * @param AbstractEntity $object
      * @return array
+     * @throws Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
     public function afterRemove(AbstractEntity $object)
     {
