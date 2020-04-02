@@ -16,5 +16,5 @@ jobs:
         env:
           SECRET_USERNAME: ${{ secrets.USERNAME }}
           SECRET_PASSWORD: ${{ secrets.PASSWORD }}
-          EXTENSION_KEY: 'fe-data-history'
+          EXTENSION_KEY: 'fe_data_history'
           UPLOAD_MESSAGE: ${{ github.event.head_commit.message }}
