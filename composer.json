@@ -19,7 +19,7 @@
   "repositories": [
     {
       "type": "path",
-      "url": "Development/Extensions/*"
+      "url": "Tests/packages/*"
     }
   ],
   "autoload": {
