@@ -1,0 +1,25 @@
+<html
+        xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers"
+        xmlns="http://www.w3.org/1999/xhtml"
+        lang="en"
+        f:schemaLocation="https://fluidtypo3.org/schemas/fluid-master.xsd"
+        data-namespace-typo3-fluid="true"
+>
+<f:form action="save" name="blog" object="{blog}" method="post">
+    <p>
+        <label for="title">Title</label>
+        <f:form.textfield id="title" property="title"/>
+    </p>
+    <p>
+        <label for="teaser">Teaser</label>
+        <f:form.textarea id="teaser" property="teaser"/>
+    </p>
+    <p>
+        <label for="bodytext">Text</label>
+        <f:form.textarea id="bodytext" property="bodytext"/>
+    </p>
+    <p>
+        <f:form.submit value="Submit"/>
+    </p>
+</f:form>
+</html>
