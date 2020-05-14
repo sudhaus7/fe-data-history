@@ -1,7 +1,7 @@
 {
   "name": "sudhaus7/fe-data-history",
   "description": "Log the changed data in frontend mode",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "type": "typo3-cms-extension",
   "license": "MIT",
   "authors": [
@@ -34,18 +34,18 @@
   },
   "require": {
     "php": ">=7.2",
-    "typo3/cms-core": "^9.5 | ^10.3",
-    "typo3/cms-backend": "^9.5 | ^10.3",
-    "typo3/cms-extbase": "^9.5 | ^10.3",
-    "typo3/cms-beuser": "^9.5 | ^10.3",
-    "typo3/cms-felogin": "^9.5 | ^10.3"
+    "typo3/cms-core": "~9.5 | ~10.4.2",
+    "typo3/cms-backend": "~9.5 | ~10.4.2",
+    "typo3/cms-extbase": "~9.5 | ~10.4.2",
+    "typo3/cms-beuser": "~9.5 | ~10.4.2",
+    "typo3/cms-felogin": "~9.5 | ~10.4.2"
   },
   "require-dev": {
-    "typo3/cms-fluid-styled-content": "^10.3",
-    "typo3/cms-tstemplate": "^10.3",
-    "typo3/cms-t3editor": "^10.3",
+    "typo3/cms-fluid-styled-content": "^10.4.2",
+    "typo3/cms-tstemplate": "^10.4.2",
+    "typo3/cms-t3editor": "^10.4.2",
     "phpstan/phpstan": "^0.11",
-    "typo3/cms-lowlevel": "^10.3",
+    "typo3/cms-lowlevel": "^10.4.2",
     "codeception/codeception": "^3.1",
     "codeception/phpbuiltinserver": "^1.5",
     "helhum/typo3-console": "v6.0.0-alpha2",
