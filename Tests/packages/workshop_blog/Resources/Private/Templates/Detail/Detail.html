@@ -20,6 +20,12 @@
     <div class="col-12">
         <f:format.html>{blog.bodytext}</f:format.html>
     </div>
+    <f:security.ifAuthenticated>
+    <div class="col-12" style="margin-bottom:2em;">
+        <f:link.action controller="Edit" action="edit" arguments="{blog:blog}" pageUid="{settings.editPage}" class="btn btn-primary">edit</f:link.action>
+    </div>
+    </f:security.ifAuthenticated>
+
 </div>
 
 <div class="row">
@@ -46,8 +52,6 @@
     <div class="col-12">
         <f:form action="savecomment" object="{newcomment}" name="comment" method="post">
             <f:form.hidden property="blog" value="{blog}"/>
-
-
             <div class="form-group">
                 <label>Your name <f:form.textfield property="commentor" class="form-control" required="1"/></label>
             </div>

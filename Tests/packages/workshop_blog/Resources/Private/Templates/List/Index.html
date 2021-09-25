@@ -17,7 +17,7 @@
             <div class="col-12">
                 <p>{blog.teaser}</p>
             </div>
-            <div class="col-12" style="margin-bottom:2em;">
+            <div class="col-6" style="margin-bottom:2em;">
                 <f:link.action controller="Detail" action="detail" arguments="{blog:blog}" pageUid="{settings.detailPage}" class="btn btn-primary">read more</f:link.action>
             </div>
         </div>
@@ -25,6 +25,18 @@
 </f:widget.paginate>
 
 <style>
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .col-12 {
+        width: 100%;
+    }
+    .col-6 {
+        width: 50%;
+    }
     .f3-widget-paginator {
         display: flex;
         flex-direction: row;

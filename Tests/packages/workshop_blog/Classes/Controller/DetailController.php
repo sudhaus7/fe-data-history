@@ -38,7 +38,6 @@ class DetailController extends ActionController
     public function detailAction(Blog $blog)
     {
         $newcomment = new Comment();
-
         $this->view->assignMultiple([
            'blog'=>$blog,
            'comments'=>$this->commentRepository->findByBlog($blog),
@@ -58,7 +57,6 @@ class DetailController extends ActionController
         $comment->setDate(new \DateTime());
         $comment->setComment(\strip_tags($comment->getComment()));
         $comment->setCommentor(\strip_tags($comment->getCommentor()));
-
         $this->commentRepository->add($comment);
         $this->redirect('detail', null, null, ['blog'=>$comment->getBlog()]);
     }
