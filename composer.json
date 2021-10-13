@@ -1,7 +1,6 @@
 {
   "name": "sudhaus7/fe-data-history",
   "description": "Log the changed data in frontend mode",
-  "version": "1.0.9",
   "type": "typo3-cms-extension",
   "license": "MIT",
   "authors": [
