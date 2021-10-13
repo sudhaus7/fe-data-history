@@ -13,7 +13,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Blog extends AbstractEntity implements HistoryEntityInterface
 {
-
     /**
      * @var int
      */

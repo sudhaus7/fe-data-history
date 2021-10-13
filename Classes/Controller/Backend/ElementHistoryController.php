@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * Created by: markus
  * Created at: 30.01.20 15:06

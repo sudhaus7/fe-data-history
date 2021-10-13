@@ -31,37 +31,42 @@ class RecordHistoryStore
     /**
      * @var int|null
      */
-    protected $userId;
+    protected ?int $userId;
 
     /**
      * @var string
      */
-    protected $userType;
+    protected string $userType;
 
     /**
      * @var int|null
      */
-    protected $originalUserId;
+    protected ?int $originalUserId;
 
     /**
      * @var int|null
      */
-    protected $tstamp;
+    protected ?int $tstamp;
 
     /**
      * @var int
      */
-    protected $workspaceId;
+    protected int $workspaceId;
 
     /**
      * @param string $userType
      * @param int|null $userId
-     * @param int $originalUserId
-     * @param int $tstamp
+     * @param int|null $originalUserId
+     * @param int|null $tstamp
      * @param int $workspaceId
      */
-    public function __construct(string $userType = self::USER_FRONTEND, int $userId = null, int $originalUserId = null, int $tstamp = null, int $workspaceId = 0)
-    {
+    public function __construct(
+        string $userType = self::USER_FRONTEND,
+        int $userId = null,
+        int $originalUserId = null,
+        int $tstamp = null,
+        int $workspaceId = 0
+    ) {
         $this->userType = $userType;
         $this->userId = $userId;
         $this->originalUserId = $GLOBALS['BE_USER']->user['uid'] ?? $originalUserId ?? 0;

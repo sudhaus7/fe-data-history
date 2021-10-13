@@ -8,7 +8,7 @@
     {
       "name": "Markus Hofmann",
       "role": "Developer",
-      "email": "mhofmann@sudhaus7.de"
+      "email": "typo3@calien.de"
     },
     {
       "name": "Frank Berger",
@@ -33,19 +33,19 @@
     }
   },
   "require": {
-    "php": ">=7.2",
-    "typo3/cms-core": "9.5.* | 10.4.* | 11.5.*",
-    "typo3/cms-backend": "9.5.* | 10.4.* | 11.5.*",
-    "typo3/cms-extbase": "9.5.* | 10.4.* | 11.5.*",
-    "typo3/cms-beuser": "9.5.* | 10.4.* | 11.5.*",
-    "typo3/cms-felogin": "9.5.* | 10.4.* | 11.5.*"
+    "php": ">=7.4",
+    "typo3/cms-core": "^10.4 | ^11.5",
+    "typo3/cms-backend": "^10.4 | ^11.5",
+    "typo3/cms-extbase": "^10.4 | ^11.5",
+    "typo3/cms-beuser": "^10.4 | ^11.5",
+    "typo3/cms-felogin": "^10.4 | ^11.5"
   },
   "require-dev": {
-    "typo3/cms-fluid-styled-content": "10.4.*",
-    "typo3/cms-tstemplate": "10.4.*",
-    "typo3/cms-t3editor": "10.4.*",
+    "typo3/cms-fluid-styled-content": "11.5.*",
+    "typo3/cms-tstemplate": "11.5.*",
+    "typo3/cms-t3editor": "11.5.*",
     "phpstan/phpstan": "*",
-    "typo3/cms-lowlevel": "10.4.*",
+    "typo3/cms-lowlevel": "11.5.*",
     "codeception/codeception": "*",
     "codeception/phpbuiltinserver": "*",
     "helhum/typo3-console": "*",

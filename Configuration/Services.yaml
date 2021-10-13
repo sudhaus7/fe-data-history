@@ -1,0 +1,26 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  SUDHAUS7\FeDataHistory\:
+    resource: '../Classes/*'
+
+  SUDHAUS7\FeDataHistory\EventListener\EntityUpdatedListener:
+    tags:
+      - name: event.listener
+        identifier: 'feDataHistoryUpdateListener'
+        event: TYPO3\CMS\Extbase\Event\Persistence\EntityUpdatedInPersistenceEvent
+
+  SUDHAUS7\FeDataHistory\EventListener\EntityNewListener:
+    tags:
+      - name: event.listener
+        identifier: 'feDataHistoryNewListener'
+        event: TYPO3\CMS\Extbase\Event\Persistence\EntityFinalizedAfterPersistenceEvent
+
+  SUDHAUS7\FeDataHistory\EventListener\EntityRemovedListener:
+    tags:
+      - name: event.listener
+        identifier: 'feDataHistoryRemoveListener'
+        event: TYPO3\CMS\Extbase\Event\Persistence\EntityRemovedFromPersistenceEvent

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * Created by: markus
  * Created at: 30.01.20 15:09
@@ -9,10 +10,14 @@ declare(strict_types=1);
 namespace SUDHAUS7\FeDataHistory\Traits;
 
 use SUDHAUS7\FeDataHistory\History\RecordHistoryStore;
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
+use TYPO3\CMS\Extbase\Persistence\Generic\Exception\TooDirtyException;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -24,13 +29,16 @@ trait HistoryRecord
 {
     /**
      * @return RecordHistoryStore
+     * @throws AspectNotFoundException
      */
     protected function getRecordHistoryStore(): RecordHistoryStore
     {
+        $context = GeneralUtility::makeInstance(Context::class);
+        $frontendUserID = (int)$context->getPropertyFromAspect('frontend.user', 'id');
         return GeneralUtility::makeInstance(
             RecordHistoryStore::class,
             RecordHistoryStore::USER_FRONTEND,
-            $GLOBALS['TSFE']->fe_user->user['uid'],
+            $frontendUserID,
             null,
             time(),
             0
@@ -38,12 +46,11 @@ trait HistoryRecord
     }
 
     /**
-     * @param AbstractEntity $object
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception\TooDirtyException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     * @param DomainObjectInterface $object
+     * @throws TooDirtyException
+     * @throws Exception|AspectNotFoundException
      */
-    protected function writeModified(AbstractEntity $object)
+    protected function writeModified(DomainObjectInterface $object)
     {
         $oldRecord = [];
         $newRecord = [];
@@ -73,7 +80,7 @@ trait HistoryRecord
             }
         }
 
-        if (count($oldRecord)>0 && count($newRecord) > 0) {
+        if (count($oldRecord) > 0 && count($newRecord) > 0) {
             $oldRecord['l10n_diffsource'] = serialize(
                 []
             );
@@ -90,11 +97,10 @@ trait HistoryRecord
     }
 
     /**
-     * @param AbstractEntity $object
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     * @param DomainObjectInterface $object
+     * @throws Exception|AspectNotFoundException
      */
-    protected function writeNew(AbstractEntity $object)
+    protected function writeNew(DomainObjectInterface $object)
     {
         $newRecord = [];
         foreach ($object->_getProperties() as $property => $value) {
@@ -111,11 +117,10 @@ trait HistoryRecord
     }
 
     /**
-     * @param AbstractEntity $object
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     * @param DomainObjectInterface $object
+     * @throws Exception|AspectNotFoundException
      */
-    protected function writeDeleted(AbstractEntity $object)
+    protected function writeDeleted(DomainObjectInterface $object)
     {
         $tableName = $this->getTableName($object);
         if (!empty($tableName)) {
@@ -124,31 +129,24 @@ trait HistoryRecord
     }
 
     /**
-     * @param AbstractEntity $obj
+     * @param DomainObjectInterface $obj
      * @return string
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
-     * @throws \TYPO3\CMS\Extbase\Object\Exception
+     * @throws Exception
      */
-    private function getTableName(AbstractEntity $obj)
+    private function getTableName(DomainObjectInterface $obj): string
     {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $dataMapper = $objectManager->get(DataMapper::class);
-        $tableName = $dataMapper->getDataMap(\get_class($obj))->getTableName();
-
-        return $tableName;
+        $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
+        return $dataMapper->getDataMap(\get_class($obj))->getTableName();
     }
 
     /**
-     * @param $property
-     * @param AbstractEntity $obj
+     * @param string $property
+     * @param DomainObjectInterface $obj
      * @return string
-     * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
-    private function getDbFieldName($property, AbstractEntity $obj)
+    private function getDbFieldName(string $property, DomainObjectInterface $obj): string
     {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $dataMapper = $objectManager->get(DataMapper::class);
-        $dbFieldName = $dataMapper->convertPropertyNameToColumnName($property, \get_class($obj));
-        return $dbFieldName;
+        $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
+        return $dataMapper->convertPropertyNameToColumnName($property, \get_class($obj));
     }
 }

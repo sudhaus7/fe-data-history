@@ -1,13 +1,11 @@
 <?php
 
-
 namespace WORKSHOP\WorkshopBlog\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Comment extends AbstractEntity
 {
-
     /**
      * @var int
      */
