@@ -45,6 +45,12 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
                     $feUser = $feUserArray[$entry['userid']];
                 } else {
                     $feUser = BackendUtility::getRecord('fe_users', $entry['userid'], 'uid,username');
+                    if (is_null($feUser)) {
+                        $feUser = [
+                            'uid' => 0,
+                            'username' => 'anonymous'
+                        ];
+                    }
                     $feUserArray[$feUser['uid']] = $feUser;
                 }
                 $singleLine['backendUserUid'] = $feUser['uid'];
