@@ -28,6 +28,20 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 trait HistoryRecord
 {
     /**
+     * dataMapper
+     *
+     * @var DataMapper
+     */
+    protected $dataMapper = null;
+
+    /**
+     * @param DataMapper $dataMapper
+     */
+    public function injectDataMapper(DataMapper $dataMapper)
+    {
+         = $dataMapper;
+    }
+    /**
      * @return RecordHistoryStore
      * @throws AspectNotFoundException
      */
@@ -135,8 +149,7 @@ trait HistoryRecord
      */
     private function getTableName(DomainObjectInterface $obj): string
     {
-        $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
-        return $dataMapper->getDataMap(\get_class($obj))->getTableName();
+        return $this->dataMapper->getDataMap(\get_class($obj))->getTableName();
     }
 
     /**
@@ -146,7 +159,6 @@ trait HistoryRecord
      */
     private function getDbFieldName(string $property, DomainObjectInterface $obj): string
     {
-        $dataMapper = GeneralUtility::makeInstance(DataMapper::class);
-        return $dataMapper->convertPropertyNameToColumnName($property, \get_class($obj));
+        return $this->dataMapper->convertPropertyNameToColumnName($property, \get_class($obj));
     }
 }
