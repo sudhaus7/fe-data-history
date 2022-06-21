@@ -39,7 +39,7 @@ trait HistoryRecord
      */
     public function injectDataMapper(DataMapper $dataMapper)
     {
-         = $dataMapper;
+        $this->dataMapper = $dataMapper;
     }
     /**
      * @return RecordHistoryStore
