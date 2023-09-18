@@ -20,6 +20,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception\TooDirtyException;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use function get_class;
 
 /**
  * Class HistoryRecord
@@ -88,7 +89,8 @@ trait HistoryRecord
                     $oldRecord[$dbProperty] = ($object->_getCleanProperty($property) ? $object->_getCleanProperty($property)->getUid() : null);
                     $newRecord[$dbProperty] = $value->getUid();
                 } else {
-                    $oldRecord[$dbProperty] = $object->_getCleanProperty($property);
+	                $oldValue = $object->_getCleanProperty($property);
+                    $oldRecord[$dbProperty] = $oldValue instanceof AbstractEntity ? $oldValue->getUid() : (int)$oldValue;
                     $newRecord[$dbProperty] = $value;
                 }
             }
@@ -149,7 +151,7 @@ trait HistoryRecord
      */
     private function getTableName(DomainObjectInterface $obj): string
     {
-        return $this->dataMapper->getDataMap(\get_class($obj))->getTableName();
+        return $this->dataMapper->getDataMap( get_class($obj))->getTableName();
     }
 
     /**
@@ -159,6 +161,6 @@ trait HistoryRecord
      */
     private function getDbFieldName(string $property, DomainObjectInterface $obj): string
     {
-        return $this->dataMapper->convertPropertyNameToColumnName($property, \get_class($obj));
+        return $this->dataMapper->convertPropertyNameToColumnName($property, get_class($obj));
     }
 }
