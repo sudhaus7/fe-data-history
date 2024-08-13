@@ -30,14 +30,14 @@ trait HistoryRecord
     /**
      * dataMapper
      *
-     * @var DataMapper
+     * @var DataMapper|null
      */
-    protected $dataMapper = null;
+    protected ?DataMapper $dataMapper = null;
 
     /**
      * @param DataMapper $dataMapper
      */
-    public function injectDataMapper(DataMapper $dataMapper)
+    public function injectDataMapper(DataMapper $dataMapper): void
     {
         $this->dataMapper = $dataMapper;
     }
@@ -47,6 +47,7 @@ trait HistoryRecord
      */
     protected function getRecordHistoryStore(): RecordHistoryStore
     {
+        /** @var Context $context */
         $context = GeneralUtility::makeInstance(Context::class);
         $frontendUserID = (int)$context->getPropertyFromAspect('frontend.user', 'id');
         return GeneralUtility::makeInstance(
@@ -64,7 +65,7 @@ trait HistoryRecord
      * @throws TooDirtyException
      * @throws Exception|AspectNotFoundException
      */
-    protected function writeModified(DomainObjectInterface $object)
+    protected function writeModified(DomainObjectInterface $object): void
     {
         $oldRecord = [];
         $newRecord = [];
@@ -114,7 +115,7 @@ trait HistoryRecord
      * @param DomainObjectInterface $object
      * @throws Exception|AspectNotFoundException
      */
-    protected function writeNew(DomainObjectInterface $object)
+    protected function writeNew(DomainObjectInterface $object): void
     {
         $newRecord = [];
         foreach ($object->_getProperties() as $property => $value) {
@@ -134,7 +135,7 @@ trait HistoryRecord
      * @param DomainObjectInterface $object
      * @throws Exception|AspectNotFoundException
      */
-    protected function writeDeleted(DomainObjectInterface $object)
+    protected function writeDeleted(DomainObjectInterface $object): void
     {
         $tableName = $this->getTableName($object);
         if (!empty($tableName)) {

@@ -1,68 +1,72 @@
 {
-  "name": "sudhaus7/fe-data-history",
-  "description": "Log the changed data in frontend mode",
-  "type": "typo3-cms-extension",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Markus Hofmann",
-      "role": "Developer",
-      "email": "typo3@calien.de"
-    },
-    {
-      "name": "Frank Berger",
-      "role": "Developer",
-      "email": "fberger@sudhaus7.de"
-    }
-  ],
-  "repositories": [
-    {
-      "type": "path",
-      "url": "Tests/packages/*"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "SUDHAUS7\\FeDataHistory\\": "Classes/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "SUDHAUS7\\FeDataHistory\\Tests\\": "Tests/"
-    }
-  },
-  "require": {
-    "php": ">=7.4",
-    "typo3/cms-core": "^10.4 | ^11.5",
-    "typo3/cms-backend": "^10.4 | ^11.5",
-    "typo3/cms-extbase": "^10.4 | ^11.5",
-    "typo3/cms-beuser": "^10.4 | ^11.5",
-    "typo3/cms-felogin": "^10.4 | ^11.5"
-  },
-  "require-dev": {
-    "typo3/cms-fluid-styled-content": "11.5.*",
-    "typo3/cms-tstemplate": "11.5.*",
-    "typo3/cms-t3editor": "11.5.*",
-    "phpstan/phpstan": "*",
-    "typo3/cms-lowlevel": "11.5.*",
-    "codeception/codeception": "*",
-    "codeception/phpbuiltinserver": "*",
-    "helhum/typo3-console": "*",
-    "workshop/blog": "@dev"
-  },
-  "extra": {
-    "typo3/cms": {
-      "extension-key": "fe_data_history",
-      "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": ".Build/public"
-    }
-  },
-  "scripts": {
-    "post-autoload-dump": [
-      "mkdir -p .Build/public/typo3conf/ext/",
-      "[ -L .Build/public/typo3conf/ext/fe_data_history ] || ln -snvf ../../../../. .Build/public/typo3conf/ext/fe_data_history",
-      "vendor/bin/typo3cms install:generatepackagestates",
-      "vendor/bin/typo3cms install:extensionsetupifpossible"
-    ]
-  }
+	"name": "sudhaus7/fe-data-history",
+	"description": "Log the changed data in frontend mode",
+	"type": "typo3-cms-extension",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Markus Hofmann",
+			"role": "Developer",
+			"email": "typo3@calien.de"
+		},
+		{
+			"name": "Frank Berger",
+			"role": "Developer",
+			"email": "fberger@sudhaus7.de"
+		},
+		{
+			"name": "Daniel Simon",
+			"role": "Developer",
+			"email": "dsimon@sudhaus7.de"
+		}
+	],
+	"repositories": [
+		{
+			"type": "path",
+			"url": "Tests/packages/*"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"SUDHAUS7\\FeDataHistory\\": "Classes/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"SUDHAUS7\\FeDataHistory\\Tests\\": "Tests/"
+		}
+	},
+	"require": {
+		"php": ">=7.4",
+		"typo3/cms-core": "^11.5 | ^12.4",
+		"typo3/cms-backend": "11.5 | ^12.4",
+		"typo3/cms-extbase": "11.5 | ^12.4",
+		"typo3/cms-beuser": "11.5 | ^12.4",
+		"typo3/cms-felogin": "11.5 | ^12.4"
+	},
+	"require-dev": {
+		"typo3/cms-fluid-styled-content": "12.4.*",
+		"typo3/cms-tstemplate": "12.4.*",
+		"typo3/cms-t3editor": "12.4.*",
+		"phpstan/phpstan": "*",
+		"typo3/cms-lowlevel": "12.4.*",
+		"codeception/codeception": "*",
+		"codeception/phpbuiltinserver": "*",
+		"helhum/typo3-console": "*",
+		"workshop/blog": "@dev"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "fe_data_history",
+			"cms-package-dir": "{$vendor-dir}/typo3/cms",
+			"web-dir": ".Build/public"
+		}
+	},
+	"scripts": {
+		"post-autoload-dump": [
+			"mkdir -p .Build/public/typo3conf/ext/",
+			"[ -L .Build/public/typo3conf/ext/fe_data_history ] || ln -snvf ../../../../. .Build/public/typo3conf/ext/fe_data_history",
+			"vendor/bin/typo3 extension:setup"
+		]
+	}
 }

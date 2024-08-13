@@ -3,7 +3,6 @@
 /**
  * Markus Hofmann
  * 13.10.21 11:29
- * churchevent
  */
 
 declare(strict_types=1);
@@ -24,7 +23,7 @@ class EntityNewListener
      * @throws \TYPO3\CMS\Core\Context\Exception\AspectNotFoundException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function __invoke(EntityFinalizedAfterPersistenceEvent $event)
+    public function __invoke(EntityFinalizedAfterPersistenceEvent $event): void
     {
         $object = $event->getObject();
         if ($object instanceof HistoryEntityInterface) {

@@ -23,7 +23,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
      *
      * @param array $historyEntries
      */
-    protected function displayHistory(array $historyEntries)
+    protected function displayHistory(array $historyEntries): void
     {
         if (empty($historyEntries)) {
             return;
@@ -39,7 +39,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
             // Build up single line
             $singleLine = [];
 
-            // Get user names
+            // Get usernames
             if ($entry['usertype'] === 'FE') {
                 if (array_key_exists($entry['userid'], $feUserArray)) {
                     $feUser = $feUserArray[$entry['userid']];

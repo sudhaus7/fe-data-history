@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-call_user_func(function () {
+call_user_func(function (): void {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
         'WORKSHOP.WorkshopBlog',
         'List',
