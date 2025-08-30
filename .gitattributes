@@ -1,0 +1,9 @@
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.github/ export-ignore
+/.ddev/ eport-ignore
+/.gitignore export-ignore
+/.run/ export-ignore
+/Build/ export-ignore
+/Tests/ export-ignore
+*.sh linguist-detectable=false
