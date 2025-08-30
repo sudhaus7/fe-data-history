@@ -37,11 +37,12 @@ jobs:
       - name: Validate rst files
         run: Build/Scripts/runTests.sh -t 12 -n -p ${{ matrix.php }} -s checkRst
 
-      - name: Unit Tests
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s unit
-
-      - name: Unit Tests (randomized)
-        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s unitRandom
+# @todo enable after setup and first unit tests
+#      - name: Unit Tests
+#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s unit
+#
+#      - name: Unit Tests (randomized)
+#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s unitRandom
 
 # @todo Functional tests disabled for now until deprecations like TCA migration has been handled correctly.
 #      - name: Functional Tests with mariadb and mysqli
