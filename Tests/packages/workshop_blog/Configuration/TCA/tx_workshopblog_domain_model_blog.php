@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     'ctrl' => [
         'label' => 'title',
@@ -13,19 +12,19 @@ return [
         'rootLevel' => 0,
         'iconfile' => 'EXT:workshop_blog/Resources/Public/Icons/Extension.svg',
         'enablecolumns' => [
-            'disabled' => 'hidden'
+            'disabled' => 'hidden',
         ],
         'title' => 'Blogentry',
-        'searchFields' => 'hidden,date,title,teaser,bodytext'
+        'searchFields' => 'hidden,date,title,teaser,bodytext',
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden,date,title,teaser,bodytext'
+        'showRecordFieldList' => 'hidden,date,title,teaser,bodytext',
     ],
     'palettes' => [],
     'types' => [
         1 => [
-            'showitem' => 'hidden,date,title,teaser,bodytext'
-        ]
+            'showitem' => 'hidden,date,title,teaser,bodytext',
+        ],
     ],
     'columns' => [
         'tstamp' => [
@@ -44,30 +43,30 @@ return [
                     [
                         0 => '',
                         1 => '',
-                        'invertStateDisplay' => true
-                    ]
+                        'invertStateDisplay' => true,
+                    ],
                 ],
-            ]
+            ],
         ],
         'title' => [
             'label' => 'Title',
             'config' => [
-                'type' => 'input'
-            ]
+                'type' => 'input',
+            ],
         ],
         'date' => [
             'label' => 'Date',
             'config' => [
                 'type' => 'input',
-                'eval' => 'datetime'
-            ]
+                'eval' => 'datetime',
+            ],
         ],
 
         'teaser' => [
             'label' => 'Teaser',
             'config' => [
-                'type' => 'text'
-            ]
+                'type' => 'text',
+            ],
         ],
 
         'bodytext' => [
@@ -75,9 +74,8 @@ return [
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
-            ]
+            ],
         ],
 
-
-    ]
+    ],
 ];

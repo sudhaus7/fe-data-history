@@ -11,14 +11,12 @@ namespace WORKSHOP\WorkshopBlog\Controller;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
-use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use WORKSHOP\WorkshopBlog\Domain\Model\Blog;
 use WORKSHOP\WorkshopBlog\Domain\Repository\BlogRepository;
 
 /**
  * Class EditController
- * @package WORKSHOP\WorkshopBlog\Controller
  */
 class EditController extends ActionController
 {
@@ -38,7 +36,7 @@ class EditController extends ActionController
      * @param Blog|null $blog
      * @\TYPO3\CMS\Extbase\Annotation\IgnoreValidation("blog")
      */
-    public function editAction(Blog $blog = null)
+    public function editAction(?Blog $blog = null)
     {
         $this->view->assign('blog', $blog);
     }

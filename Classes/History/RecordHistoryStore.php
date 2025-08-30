@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class RecordHistoryStore
- * @package SUDHAUS7\FeDataHistory\History
  */
 class RecordHistoryStore
 {

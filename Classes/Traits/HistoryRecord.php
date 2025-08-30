@@ -23,7 +23,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Class HistoryRecord
- * @package SUDHAUS7\FeDataHistory\Traits
  */
 trait HistoryRecord
 {
