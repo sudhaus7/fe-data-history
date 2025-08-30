@@ -2,35 +2,21 @@
 
 namespace WORKSHOP\WorkshopBlog\Controller;
 
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use WORKSHOP\WorkshopBlog\Domain\Model\Blog;
 use WORKSHOP\WorkshopBlog\Domain\Model\Comment;
-use WORKSHOP\WorkshopBlog\Domain\Repository\BlogRepository;
 use WORKSHOP\WorkshopBlog\Domain\Repository\CommentRepository;
 
-class DetailController extends ActionController
+final class DetailController extends ActionController
 {
-    /**
-     * @var BlogRepository
-     */
-    protected $blogRepository;
+    public function __construct(
+        private readonly CommentRepository $commentRepository,
+    ) {}
 
-    /**
-     * @var CommentRepository
-     */
-    protected $commentRepository;
-
-    public function injectBlogRepository(BlogRepository $blogRepository)
-    {
-        $this->blogRepository = $blogRepository;
-    }
-
-    public function injectCommentRepository(CommentRepository $commentRepository)
-    {
-        $this->commentRepository = $commentRepository;
-    }
-
-    public function detailAction(Blog $blog)
+    public function detailAction(Blog $blog): ResponseInterface
     {
         $newcomment = new Comment();
         $this->view->assignMultiple([
@@ -38,20 +24,19 @@ class DetailController extends ActionController
             'comments' => $this->commentRepository->findByBlog($blog),
             'newcomment' => $newcomment,
         ]);
+        return $this->htmlResponse();
     }
 
     /**
-     * @param Comment $comment
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws IllegalObjectTypeException
      */
-    public function savecommentAction(Comment $comment)
+    public function savecommentAction(Comment $comment): ResponseInterface
     {
         $comment->setDate(new \DateTime());
-        $comment->setComment(\strip_tags($comment->getComment()));
-        $comment->setCommentor(\strip_tags($comment->getCommentor()));
+        $comment->setComment(strip_tags((string)$comment->getComment()));
+        $comment->setCommentor(strip_tags((string)$comment->getCommentor()));
         $this->commentRepository->add($comment);
-        $this->redirect('detail', null, null, ['blog' => $comment->getBlog()]);
+        $uri = $this->uriBuilder->uriFor('detail', ['blog' => $comment->getBlog()]);
+        return new RedirectResponse($uri);
     }
 }

@@ -1,2 +1,11 @@
 parameters:
 	ignoreErrors:
+		-
+			message: "#^Method SUDHAUS7\\\\FeDataHistory\\\\Controller\\\\Backend\\\\ElementHistoryController\\:\\:displayHistory\\(\\) has parameter \\$historyEntries with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../../../Classes/Controller/Backend/ElementHistoryController.php
+
+		-
+			message: "#^Parameter \\#1 \\$input of method TYPO3\\\\CMS\\\\Core\\\\Localization\\\\LanguageService\\:\\:sL\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: ../../../Classes/Controller/Backend/ElementHistoryController.php
