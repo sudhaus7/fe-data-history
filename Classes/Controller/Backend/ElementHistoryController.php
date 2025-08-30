@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SUDHAUS7\FeDataHistory\Controller\Backend;
 
+use Override;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Controller\ContentElement\ElementHistoryController as Typo3ElementHistoryController;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
