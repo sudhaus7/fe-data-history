@@ -1,55 +1,50 @@
 <?php
 
-if (!defined('TYPO3_MODE')) {
-    die();
-}
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use WORKSHOP\WorkshopBlog\Controller\DetailController;
+use WORKSHOP\WorkshopBlog\Controller\EditController;
+use WORKSHOP\WorkshopBlog\Controller\LatestController;
+use WORKSHOP\WorkshopBlog\Controller\ListController;
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'WORKSHOP.WorkshopBlog',
-    'List',
-    [
-        'List' => 'index',
-    ],
-    [
-        //    'List' => 'index',
-    ],
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
-);
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'WORKSHOP.WorkshopBlog',
-    'Latest',
-    [
-        'Latest' => 'index',
-    ],
-    [
-        //  'Latest'=>'index',
-    ],
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
-);
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'WORKSHOP.WorkshopBlog',
-    'Detail',
-    [
+(static function (): void {
+    ExtensionUtility::configurePlugin(
+        'WorkshopBlog',
+        'List',
+        [
+            ListController::class => 'index',
+        ],
+        [],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+    ExtensionUtility::configurePlugin(
+        'WorkshopBlog',
+        'Latest',
+        [
+            LatestController::class => 'index',
+        ],
+        [],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+    ExtensionUtility::configurePlugin(
+        'WorkshopBlog',
+        'Detail',
+        [
 
-        'Detail' => 'detail,savecomment',
-    ],
-    [
+            DetailController::class => 'detail,savecomment',
+        ],
+        [],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
 
-        // 'Detail'=>'detail,savecomment'
-    ],
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'WORKSHOP.WorkshopBlog',
-    'Edit',
-    [
-
-        'Edit' => 'edit,save',
-    ],
-    [
-
-        'Edit' => 'edit,save',
-    ],
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
-);
+    ExtensionUtility::configurePlugin(
+        'WorkshopBlog',
+        'Edit',
+        [
+            EditController::class => 'edit,save',
+        ],
+        [
+            'Edit' => 'edit,save',
+        ],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+})();

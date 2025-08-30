@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace WORKSHOP\WorkshopBlog\Controller;
 
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use WORKSHOP\WorkshopBlog\Domain\Model\Blog;
@@ -20,37 +20,28 @@ use WORKSHOP\WorkshopBlog\Domain\Repository\BlogRepository;
  */
 class EditController extends ActionController
 {
-    /**
-     * @var BlogRepository
-     */
-    protected $blogRepository;
+    public function __construct(
+        private readonly BlogRepository $blogRepository,
+        private readonly PersistenceManager $persistenceManager,
+    ) {}
 
     /**
-     * @param BlogRepository $blogRepository
-     */
-    public function injectBlogRepository(BlogRepository $blogRepository)
-    {
-        $this->blogRepository = $blogRepository;
-    }
-    /**
-     * @param Blog|null $blog
      * @\TYPO3\CMS\Extbase\Annotation\IgnoreValidation("blog")
      */
-    public function editAction(?Blog $blog = null)
+    public function editAction(?Blog $blog = null): ResponseInterface
     {
         $this->view->assign('blog', $blog);
+        return $this->htmlResponse();
     }
 
     /**
-     * @param Blog $blog
-     * @throws StopActionException
      * @throws IllegalObjectTypeException
      */
-    public function saveAction(Blog $blog)
+    public function saveAction(Blog $blog): ResponseInterface
     {
         $this->blogRepository->add($blog);
-        $this->objectManager->get(PersistenceManager::class)->persistAll();
+        $this->persistenceManager->persistAll();
 
-        $this->redirect('edit', null, null, ['blog' => $blog]);
+        return $this->redirect('edit', null, null, ['blog' => $blog]);
     }
 }

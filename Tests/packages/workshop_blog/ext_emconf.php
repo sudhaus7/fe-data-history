@@ -1,5 +1,6 @@
 <?php
 
+/** @phpstan-ignore variable.undefined */
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Workshop Blog',
     'description' => 'Workshop Blog',

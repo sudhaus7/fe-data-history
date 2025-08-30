@@ -41,8 +41,7 @@ return [
                 'default' => 1,
                 'items' => [
                     [
-                        0 => '',
-                        1 => '',
+                        'label' => 'hidden',
                         'invertStateDisplay' => true,
                     ],
                 ],
@@ -57,8 +56,7 @@ return [
         'date' => [
             'label' => 'Date',
             'config' => [
-                'type' => 'input',
-                'eval' => 'datetime',
+                'type' => 'datetime',
             ],
         ],
 
