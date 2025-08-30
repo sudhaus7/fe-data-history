@@ -2,25 +2,27 @@
 
 declare(strict_types=1);
 
-/**
- * Created by: markus
- * Created at: 30.01.20 15:06
- */
-
 namespace SUDHAUS7\FeDataHistory\Controller\Backend;
 
+use TYPO3\CMS\Backend\Attribute\AsController;
+use TYPO3\CMS\Backend\Controller\ContentElement\ElementHistoryController as Typo3ElementHistoryController;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\History\RecordHistoryStore;
 
 /**
- * Class ElementHistoryController
+ * Override of the TYPO3 Core controlleer to add possibility showing Frontend related changes with user
+ * data.
+ * @internal no public API.
  */
-class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElement\ElementHistoryController
+#[AsController]
+class ElementHistoryController extends Typo3ElementHistoryController
 {
     /**
      * Shows the full change log
      *
-     * @param array $historyEntries
+     * This method is cloned and adjusted to display the frontend user changes
+     * with the respective username.
+     * @see Typo3ElementHistoryController::displayHistory()
      */
     #[\Override]
     protected function displayHistory(array $historyEntries): void
@@ -30,7 +32,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
         }
         $languageService = $this->getLanguageService();
         $lines = [];
-        $beUserArray = BackendUtility::getUserNames();
+        $beUserArray = BackendUtility::getUserNames('username,realName,usergroup,uid');
 
         $feUserArray = [];
 
@@ -64,6 +66,9 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
                 $singleLine['originalBackendUserName'] = $beUserArray[$entry['originaluserid']]['username'];
             }
 
+            // Is a change in a workspace?
+            $singleLine['isChangedInWorkspace'] = (int)$entry['workspace'] > 0;
+
             // Diff link
             $singleLine['diffUrl'] = $this->buildUrl(['historyEntry' => $entry['uid']]);
             // Add time
@@ -79,6 +84,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
                 if (!$this->showDiff) {
                     // Display field names instead of full diff
                     // Re-write field names with labels
+                    /** @var string[] $tmpFieldList */
                     $tmpFieldList = array_keys($entry['newRecord']);
                     foreach ($tmpFieldList as $key => $value) {
                         $tmp = str_replace(':', '', $languageService->sL(BackendUtility::getItemLabel($entry['tablename'], $value)));
@@ -92,7 +98,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
                     $singleLine['fieldNames'] = implode(',', $tmpFieldList);
                 } else {
                     // Display diff
-                    $singleLine['differences'] = $this->renderDiff($entry, $entry['tablename']);
+                    $singleLine['differences'] = $this->renderDiff($entry, $entry['tablename'], $entry['recuid']);
                 }
             }
             // put line together
