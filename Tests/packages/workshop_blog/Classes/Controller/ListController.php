@@ -10,14 +10,11 @@ class ListController extends ActionController
 {
     /**
      * @var BlogRepository
-     *
      */
     protected $blogRepository;
 
-
     /**
      * @var CommentRepository
-     *
      */
     protected $commentRepository;
 
@@ -34,7 +31,7 @@ class ListController extends ActionController
     public function indexAction()
     {
         $this->view->assignMultiple([
-            'blogs'=>$this->blogRepository->findAll(),
+            'blogs' => $this->blogRepository->findAll(),
         ]);
     }
 }

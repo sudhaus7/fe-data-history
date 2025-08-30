@@ -11,7 +11,6 @@ class Comment extends AbstractEntity
      */
     protected $tstamp;
 
-
     /**
      * @var string
      */
@@ -87,7 +86,6 @@ class Comment extends AbstractEntity
     {
         return $this->date;
     }
-
 
     public function setDate(\DateTime $date): void
     {

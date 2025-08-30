@@ -10,14 +10,11 @@ class LatestController extends ActionController
 {
     /**
      * @var BlogRepository
-     *
      */
     protected $blogRepository;
 
-
     /**
      * @var CommentRepository
-     *
      */
     protected $commentRepository;
 
@@ -34,7 +31,7 @@ class LatestController extends ActionController
     public function indexAction()
     {
         $this->view->assignMultiple([
-            'blogs'=>$this->blogRepository->findAll()->getQuery()->setLimit(3)->execute(),
+            'blogs' => $this->blogRepository->findAll()->getQuery()->setLimit(3)->execute(),
         ]);
     }
 }

@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\DataHandling\History\RecordHistoryStore;
 
 /**
  * Class ElementHistoryController
- * @package SUDHAUS7\FeDataHistory\Controller\Backend
  */
 class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElement\ElementHistoryController
 {
@@ -23,6 +22,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
      *
      * @param array $historyEntries
      */
+    #[\Override]
     protected function displayHistory(array $historyEntries): void
     {
         if (empty($historyEntries)) {
@@ -48,13 +48,13 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
                     if (is_null($feUser)) {
                         $feUser = [
                             'uid' => 0,
-                            'username' => 'anonymous'
+                            'username' => 'anonymous',
                         ];
                     }
                     $feUserArray[$feUser['uid']] = $feUser;
                 }
                 $singleLine['backendUserUid'] = $feUser['uid'];
-                $singleLine['backendUserName'] = 'FE-User: '.($feUser['uid'] ? $feUser['username'] : '');
+                $singleLine['backendUserName'] = 'FE-User: ' . ($feUser['uid'] ? $feUser['username'] : '');
             } else {
                 $singleLine['backendUserUid'] = $entry['userid'];
                 $singleLine['backendUserName'] = $entry['userid'] ? $beUserArray[$entry['userid']]['username'] : '';
@@ -72,7 +72,7 @@ class ElementHistoryController extends \TYPO3\CMS\Backend\Controller\ContentElem
             $singleLine['age'] = BackendUtility::calcAge($GLOBALS['EXEC_TIME'] - $entry['tstamp'], $languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.minutesHoursDaysYears'));
 
             $singleLine['title'] = $this->generateTitle($entry['tablename'], $entry['recuid']);
-            $singleLine['elementUrl'] = $this->buildUrl(['element' => $entry['tablename'].':'.$entry['recuid']]);
+            $singleLine['elementUrl'] = $this->buildUrl(['element' => $entry['tablename'] . ':' . $entry['recuid']]);
             $singleLine['actiontype'] = $entry['actiontype'];
             if ((int)$entry['actiontype'] === RecordHistoryStore::ACTION_MODIFY) {
                 // show changes

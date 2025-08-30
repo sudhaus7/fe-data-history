@@ -11,7 +11,7 @@ if (!defined('TYPO3_MODE')) {
         'List' => 'index',
     ],
     [
-    //    'List' => 'index',
+        //    'List' => 'index',
     ],
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
 );
@@ -19,10 +19,10 @@ if (!defined('TYPO3_MODE')) {
     'WORKSHOP.WorkshopBlog',
     'Latest',
     [
-        'Latest'=>'index',
+        'Latest' => 'index',
     ],
     [
-      //  'Latest'=>'index',
+        //  'Latest'=>'index',
     ],
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
 );
@@ -31,11 +31,11 @@ if (!defined('TYPO3_MODE')) {
     'Detail',
     [
 
-        'Detail'=>'detail,savecomment'
+        'Detail' => 'detail,savecomment',
     ],
     [
 
-       // 'Detail'=>'detail,savecomment'
+        // 'Detail'=>'detail,savecomment'
     ],
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
 );
@@ -45,11 +45,11 @@ if (!defined('TYPO3_MODE')) {
     'Edit',
     [
 
-        'Edit'=>'edit,save'
+        'Edit' => 'edit,save',
     ],
     [
 
-        'Edit'=>'edit,save'
+        'Edit' => 'edit,save',
     ],
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
 );

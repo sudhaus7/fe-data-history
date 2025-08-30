@@ -10,8 +10,5 @@ namespace SUDHAUS7\FeDataHistory\Domain;
 
 /**
  * Interface HistoryEntityInterface
- * @package SUDHAUS7\FeDataHistory\Domain
  */
-interface HistoryEntityInterface
-{
-}
+interface HistoryEntityInterface {}

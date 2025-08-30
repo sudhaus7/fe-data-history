@@ -9,7 +9,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
  * Class Blog
- * @package WORKSHOP\WorkshopBlog\Domain\Model
  */
 class Blog extends AbstractEntity implements HistoryEntityInterface
 {
@@ -37,7 +36,6 @@ class Blog extends AbstractEntity implements HistoryEntityInterface
      * @var string
      */
     protected $bodytext;
-
 
     /**
      * @return string|null

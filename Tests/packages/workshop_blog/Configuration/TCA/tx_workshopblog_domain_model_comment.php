@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     'ctrl' => [
         'label' => 'commentor',
@@ -13,19 +12,19 @@ return [
         'rootLevel' => 0,
         'iconfile' => 'EXT:workshop_blog/Resources/Public/Icons/Extension.svg',
         'enablecolumns' => [
-            'disabled' => 'hidden'
+            'disabled' => 'hidden',
         ],
         'title' => 'Comment',
-        'searchFields' => 'hidden,date,commentor,comment,blog'
+        'searchFields' => 'hidden,date,commentor,comment,blog',
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden,date,commentor,comment,blog'
+        'showRecordFieldList' => 'hidden,date,commentor,comment,blog',
     ],
     'palettes' => [],
     'types' => [
         1 => [
-            'showitem' => 'hidden,date,commentor,comment,blog'
-        ]
+            'showitem' => 'hidden,date,commentor,comment,blog',
+        ],
     ],
     'columns' => [
         'tstamp' => [
@@ -44,42 +43,42 @@ return [
                     [
                         0 => '',
                         1 => '',
-                        'invertStateDisplay' => true
-                    ]
+                        'invertStateDisplay' => true,
+                    ],
                 ],
-            ]
+            ],
         ],
         'commentor' => [
             'label' => 'Commentor',
             'config' => [
-                'type' => 'input'
-            ]
+                'type' => 'input',
+            ],
         ],
         'date' => [
             'label' => 'Date',
             'config' => [
                 'type' => 'input',
-                'eval' => 'datetime'
-            ]
+                'eval' => 'datetime',
+            ],
         ],
 
         'comment' => [
             'label' => 'Comment',
             'config' => [
-                'type' => 'text'
-            ]
+                'type' => 'text',
+            ],
         ],
 
-        'blog'=> [
+        'blog' => [
             'label' => 'Blog',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'tx_workshopblog_domain_model_blog',
-                'foreign_table'=> 'tx_workshopblog_domain_model_blog',
-                'minitems'=>1,
-                'maxitems'=>1,
-            ]
-        ]
-    ]
+                'foreign_table' => 'tx_workshopblog_domain_model_blog',
+                'minitems' => 1,
+                'maxitems' => 1,
+            ],
+        ],
+    ],
 ];
