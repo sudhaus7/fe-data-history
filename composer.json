@@ -52,6 +52,9 @@
 			"extension-key": "fe_data_history",
 			"cms-package-dir": "{$vendor-dir}/typo3/cms",
 			"web-dir": ".Build/public"
+		},
+		"branch-alias": {
+			"dev-master": "3.x.x-dev"
 		}
 	},
 	"config": {
