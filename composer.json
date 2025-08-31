@@ -20,12 +20,6 @@
 			"email": "dsimon@sudhaus7.de"
 		}
 	],
-	"repositories": [
-		{
-			"type": "path",
-			"url": "Tests/packages/*"
-		}
-	],
 	"autoload": {
 		"psr-4": {
 			"SUDHAUS7\\FeDataHistory\\": "Classes/"
@@ -69,5 +63,11 @@
 		},
 		"vendor-dir": ".Build/vendor",
 		"bin-dir": ".Build/bin"
+	},
+	"repositories": {
+		"fixture": {
+			"type": "path",
+			"url": "Tests/Functional/Fixtures/Extensions/workshop_blog"
+		}
 	}
 }
