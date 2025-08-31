@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="../../.Build/vendor/phpunit/phpunit/phpunit.xsd"
     backupGlobals="true"
-    bootstrap="UnitTestsBootstrap.php"
+    bootstrap="FunctionalTestsBootstrap.php"
     cacheResult="false"
     colors="true"
     beStrictAboutTestsThatDoNotTestAnything="false"
@@ -18,8 +18,8 @@
     cacheDirectory=".phpunit.cache"
 >
     <testsuites>
-        <testsuite name="Unit tests">
-            <directory>../../Tests/Unit/</directory>
+        <testsuite name="Functional tests">
+            <directory>../../Tests/Functional/</directory>
         </testsuite>
     </testsuites>
     <php>
