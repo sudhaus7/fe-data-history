@@ -31,20 +31,38 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         'EXT:workshop_blog/Resources/Public/Icons/Extension.svg'
     );
 
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['workshopblog_list'] = 'pi_flexform';
-    ExtensionManagementUtility::addPiFlexFormValue(
+    ExtensionManagementUtility::addToAllTCAtypes(
+        'tt_content',
+        '--div--;Configuration,pi_flexform,',
         'workshopblog_list',
-        'FILE:EXT:workshop_blog/Configuration/Flexforms/Flexform.xml'
+        'after:subheader',
+    );
+    ExtensionManagementUtility::addPiFlexFormValue(
+        '*',
+        'FILE:EXT:workshop_blog/Configuration/Flexforms/Flexform.xml',
+        'workshopblog_list'
     );
 
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['workshopblog_latest'] = 'pi_flexform';
-    ExtensionManagementUtility::addPiFlexFormValue(
+    ExtensionManagementUtility::addToAllTCAtypes(
+        'tt_content',
+        '--div--;Configuration,pi_flexform,',
         'workshopblog_latest',
-        'FILE:EXT:workshop_blog/Configuration/Flexforms/Flexform.xml'
+        'after:subheader',
     );
-    $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['workshopblog_detail'] = 'pi_flexform';
     ExtensionManagementUtility::addPiFlexFormValue(
+        '*',
+        'FILE:EXT:workshop_blog/Configuration/Flexforms/Flexform.xml',
+        'workshopblog_latest'
+    );
+    ExtensionManagementUtility::addToAllTCAtypes(
+        'tt_content',
+        '--div--;Configuration,pi_flexform,',
         'workshopblog_detail',
-        'FILE:EXT:workshop_blog/Configuration/Flexforms/FlexformEdit.xml'
+        'after:subheader',
+    );
+    ExtensionManagementUtility::addPiFlexFormValue(
+        '*',
+        'FILE:EXT:workshop_blog/Configuration/Flexforms/FlexformEdit.xml',
+        'workshopblog_detail'
     );
 })();
