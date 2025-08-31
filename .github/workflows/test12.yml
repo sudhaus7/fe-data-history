@@ -37,28 +37,26 @@ jobs:
       - name: Validate rst files
         run: Build/Scripts/runTests.sh -t 12 -n -p ${{ matrix.php }} -s checkRst
 
-# @todo enable after setup and first unit tests
-#      - name: Unit Tests
-#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s unit
-#
-#      - name: Unit Tests (randomized)
-#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s unitRandom
+      - name: Unit Tests
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s unit
 
-# @todo Functional tests disabled for now until deprecations like TCA migration has been handled correctly.
-#      - name: Functional Tests with mariadb and mysqli
-#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -a mysqli -s functional
-#
-#      - name: Functional Tests with mariadb and pdo_mysql
-#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -a pdo_mysql -s functional
-#
-#      - name: Functional Tests with mysql and mysqli
-#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mysql -a mysqli -s functional
-#
-#      - name: Functional Tests with mysql and pdo_mysql
-#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mysql -a pdo_mysql -s functional
-#
-#      - name: Functional Tests with postgres
-#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d postgres -s functional
-#
-#      - name: Functional Tests with sqlite
-#        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d sqlite -s functional
+      - name: Unit Tests (randomized)
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -s unitRandom
+
+      - name: Functional Tests with mariadb and mysqli
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -a mysqli -s functional
+
+      - name: Functional Tests with mariadb and pdo_mysql
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mariadb -a pdo_mysql -s functional
+
+      - name: Functional Tests with mysql and mysqli
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mysql -a mysqli -s functional
+
+      - name: Functional Tests with mysql and pdo_mysql
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d mysql -a pdo_mysql -s functional
+
+      - name: Functional Tests with postgres
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d postgres -s functional
+
+      - name: Functional Tests with sqlite
+        run: Build/Scripts/runTests.sh -t 12 -p ${{ matrix.php }} -d sqlite -s functional
