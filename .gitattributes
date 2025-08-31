@@ -7,3 +7,5 @@
 /Build/ export-ignore
 /Tests/ export-ignore
 *.sh linguist-detectable=false
+/tailor-version-artefact/ export-ignore
+/tailor-version-upload/ export-ignore

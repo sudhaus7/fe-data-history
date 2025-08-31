@@ -53,7 +53,8 @@ fabric.properties
 
 tests/_output/*
 /Documentation-GENERATED-temp
-
+/tailor-version-artefact/
+/tailor-version-upload/
 /*.php
 !/ext_*.php
 
