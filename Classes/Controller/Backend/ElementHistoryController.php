@@ -29,7 +29,7 @@ class ElementHistoryController extends Typo3ElementHistoryController
     #[\Override]
     protected function displayHistory(array $historyEntries): void
     {
-        if (empty($historyEntries)) {
+        if ($historyEntries === []) {
             return;
         }
         $languageService = $this->getLanguageService();
@@ -43,7 +43,7 @@ class ElementHistoryController extends Typo3ElementHistoryController
             // Build up single line
             $singleLine = [];
 
-            // Get usernames
+            // Get user names
             if ($entry['usertype'] === 'FE') {
                 if (array_key_exists($entry['userid'], $feUserArray)) {
                     $feUser = $feUserArray[$entry['userid']];
@@ -62,10 +62,13 @@ class ElementHistoryController extends Typo3ElementHistoryController
             } else {
                 $singleLine['backendUserUid'] = $entry['userid'];
                 $singleLine['backendUserName'] = $beUserArray[$entry['userid']]['username'] ?? '';
+                $singleLine['backendUserRealName'] = $beUserArray[$entry['userid']]['realName'] ?? '';
             }
             // Executed by switch user
             if (!empty($entry['originaluserid'])) {
+                $singleLine['originalBackendUserUid'] = $entry['originaluserid'];
                 $singleLine['originalBackendUserName'] = $beUserArray[$entry['originaluserid']]['username'] ?? '';
+                $singleLine['originalBackendRealName'] = $beUserArray[$entry['originaluserid']]['realName'] ?? '';
             }
 
             // Is a change in a workspace?
@@ -73,12 +76,14 @@ class ElementHistoryController extends Typo3ElementHistoryController
 
             // Diff link
             $singleLine['diffUrl'] = $this->buildUrl(['historyEntry' => $entry['uid']]);
+            // Add time
             $singleLine['day'] = BackendUtility::date($entry['tstamp']);
             $singleLine['timestamp'] = DateTimeFactory::createFromTimestamp($entry['tstamp']);
 
             $singleLine['title'] = $this->generateTitle($entry['tablename'], (string)$entry['recuid']);
             $singleLine['recordTable'] = $entry['tablename'];
             $singleLine['recordUid'] = $entry['recuid'];
+
             $singleLine['elementUrl'] = $this->buildUrl(['element' => $entry['tablename'] . ':' . $entry['recuid']]);
             $singleLine['actiontype'] = $entry['actiontype'];
             if ((int)$entry['actiontype'] === RecordHistoryStore::ACTION_MODIFY || (int)$entry['actiontype'] === RecordHistoryStore::ACTION_PUBLISH) {
