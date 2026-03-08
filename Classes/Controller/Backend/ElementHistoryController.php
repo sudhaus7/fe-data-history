@@ -9,6 +9,7 @@ use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Controller\ContentElement\ElementHistoryController as Typo3ElementHistoryController;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\History\RecordHistoryStore;
+use TYPO3\CMS\Core\Domain\DateTimeFactory;
 
 /**
  * Override of the TYPO3 Core controlleer to add possibility showing Frontend related changes with user
@@ -28,7 +29,7 @@ class ElementHistoryController extends Typo3ElementHistoryController
     #[\Override]
     protected function displayHistory(array $historyEntries): void
     {
-        if (empty($historyEntries)) {
+        if ($historyEntries === []) {
             return;
         }
         $languageService = $this->getLanguageService();
@@ -42,7 +43,7 @@ class ElementHistoryController extends Typo3ElementHistoryController
             // Build up single line
             $singleLine = [];
 
-            // Get usernames
+            // Get user names
             if ($entry['usertype'] === 'FE') {
                 if (array_key_exists($entry['userid'], $feUserArray)) {
                     $feUser = $feUserArray[$entry['userid']];
@@ -60,11 +61,14 @@ class ElementHistoryController extends Typo3ElementHistoryController
                 $singleLine['backendUserName'] = 'FE-User: ' . ($feUser['uid'] ? $feUser['username'] : '');
             } else {
                 $singleLine['backendUserUid'] = $entry['userid'];
-                $singleLine['backendUserName'] = $entry['userid'] ? $beUserArray[$entry['userid']]['username'] : '';
+                $singleLine['backendUserName'] = $beUserArray[$entry['userid']]['username'] ?? '';
+                $singleLine['backendUserRealName'] = $beUserArray[$entry['userid']]['realName'] ?? '';
             }
             // Executed by switch user
             if (!empty($entry['originaluserid'])) {
-                $singleLine['originalBackendUserName'] = $beUserArray[$entry['originaluserid']]['username'];
+                $singleLine['originalBackendUserUid'] = $entry['originaluserid'];
+                $singleLine['originalBackendUserName'] = $beUserArray[$entry['originaluserid']]['username'] ?? '';
+                $singleLine['originalBackendRealName'] = $beUserArray[$entry['originaluserid']]['realName'] ?? '';
             }
 
             // Is a change in a workspace?
@@ -73,14 +77,16 @@ class ElementHistoryController extends Typo3ElementHistoryController
             // Diff link
             $singleLine['diffUrl'] = $this->buildUrl(['historyEntry' => $entry['uid']]);
             // Add time
-            $singleLine['time'] = BackendUtility::datetime($entry['tstamp']);
-            // Add age
-            $singleLine['age'] = BackendUtility::calcAge($GLOBALS['EXEC_TIME'] - $entry['tstamp'], $languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.minutesHoursDaysYears'));
+            $singleLine['day'] = BackendUtility::date($entry['tstamp']);
+            $singleLine['timestamp'] = DateTimeFactory::createFromTimestamp($entry['tstamp']);
 
-            $singleLine['title'] = $this->generateTitle($entry['tablename'], $entry['recuid']);
+            $singleLine['title'] = $this->generateTitle($entry['tablename'], (string)$entry['recuid']);
+            $singleLine['recordTable'] = $entry['tablename'];
+            $singleLine['recordUid'] = $entry['recuid'];
+
             $singleLine['elementUrl'] = $this->buildUrl(['element' => $entry['tablename'] . ':' . $entry['recuid']]);
             $singleLine['actiontype'] = $entry['actiontype'];
-            if ((int)$entry['actiontype'] === RecordHistoryStore::ACTION_MODIFY) {
+            if ((int)$entry['actiontype'] === RecordHistoryStore::ACTION_MODIFY || (int)$entry['actiontype'] === RecordHistoryStore::ACTION_PUBLISH) {
                 // show changes
                 if (!$this->showDiff) {
                     // Display field names instead of full diff
@@ -99,7 +105,7 @@ class ElementHistoryController extends Typo3ElementHistoryController
                     $singleLine['fieldNames'] = implode(',', $tmpFieldList);
                 } else {
                     // Display diff
-                    $singleLine['differences'] = $this->renderDiff($entry, $entry['tablename'], $entry['recuid']);
+                    $singleLine['differences'] = $this->renderDiff($entry, $entry['tablename'], (int)$entry['recuid']);
                 }
             }
             // put line together
